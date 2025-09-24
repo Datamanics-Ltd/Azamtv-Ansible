@@ -1,0 +1,15 @@
+common_packages:
+  - rsync
+  - net-tools
+  - mtr
+  - git
+  - vim
+  - software-properties-common
+  - lynx
+  - unzip
+  - curl
+  - wget
+  - mailutils
+  - traceroute
+  - less
+  - cron
