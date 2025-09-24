@@ -1,0 +1,22 @@
+---
+
+- name: Sync nginx.conf file
+  copy: 
+    src: nginx.conf 
+    dest: /etc/nginx/nginx.conf 
+    owner: root 
+    group: root 
+    mode: 0644
+
+- name: Sync azamtvmax.com.conf file
+  copy: 
+    src: azamtvmax.com.conf 
+    dest: /etc/nginx/conf.d/azamtvmax.com.conf 
+    owner: root 
+    group: root 
+    mode: 0644
+
+- name: Restart nginx service
+  ansible.builtin.systemd:
+    name: nginx
+    state: restarted
