@@ -1,0 +1,3 @@
+pm2_process_name: "{{ ENV_CODE }}-api"
+pm2_bin: /usr/lib/node_modules/pm2/bin/pm2
+application_file: /home/devops/Azammedia-backend/dist/server.js
