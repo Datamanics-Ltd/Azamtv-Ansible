@@ -1,0 +1,45 @@
+---
+- name: Install curl, software-properties-common, and build-essential
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - curl
+    - software-properties-common
+    - build-essential
+
+- name: Install nodejs and npm
+  become: yes
+  shell: curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+
+- name: Install Node.js
+  become: yes
+  apt:
+   become: yes
+  apt:
+    deb: "https://deb.nodesource.com/node_18.x/pool/main/n/nodejs/nodejs_18.18.0-1nodesource1_amd64.deb"
+    state: present
+    
+- name: Install pm2
+  npm:
+    name: pm2
+    global: yes
+
+- name: ensure nginx is at the latest version
+  apt:
+    name: nginx
+    state: latest
+    
+- name: start nginx
+  service: 
+    name: nginx
+    state: started
+    enabled: yes 
+
+- name: Freeze Node.js, npm, and pm2
+  become: yes
+  shell: "echo '{{ item }} hold' | sudo dpkg --set-selections"
+  with_items:
+    - nodejs
+    - npm
+    - pm2
