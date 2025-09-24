@@ -1,0 +1,4 @@
+---
+- name: Start or Stop PM2 Processes
+  shell: "{{ pm2_bin }} {{ pm2_action }} {{ pm2_process_name }} {{application_file}}"
+  when: pm2_action is defined
