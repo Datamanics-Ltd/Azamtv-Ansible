@@ -1,0 +1,6 @@
+---
+
+- name: Update bash.bashrc file
+  template:
+    src='../files/bash.bashrc'
+    dest=/etc/bash.bashrc
