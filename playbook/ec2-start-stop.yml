@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    aws_profile: azamtvmax
+    ec2_action: stopped  # stopped/running
+
+  roles: 
+    - { role: ../roles/ec2-start-stop }
+
+    
+
+
+
+
+

@@ -1,0 +1,27 @@
+---
+- hosts: '{{ deploy_host }}'
+  become: true
+  become_user: devops
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    RELEASE_VERSION: v1p.0.27
+    ENV_CODE: prod ##prod/stage
+  vars_prompt:
+    - name: pm2_action
+      prompt: "Enter 'start' to start PM2 processes or 'stop' to stop them"
+      private: no
+      
+    - name: deploy_host
+      prompt: "Target Host Name"
+      private: no
+
+
+
+  roles: 
+    - { role: ../roles/pm2-restart }
+    
+
+
+
+
+

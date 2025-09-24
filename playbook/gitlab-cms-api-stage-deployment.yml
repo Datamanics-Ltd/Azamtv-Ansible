@@ -1,0 +1,18 @@
+---
+- hosts: '{{ deploy_host }}'
+  become: true
+  become_user: devops
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    RELEASE_VERSION:  MONGO6CMSA-1.0.23
+    ENV_CODE: stage ##prod/stage
+  vars_prompt:
+    - name: deploy_host
+      prompt: "Target Host Name"
+      private: no
+
+
+
+  roles: 
+ #   -  { role: ../roles/hostname }
+    - { role: ../roles/deploy-stage-cmsapi-artifact }

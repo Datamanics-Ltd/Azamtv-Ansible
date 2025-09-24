@@ -1,0 +1,24 @@
+---
+- hosts: '{{ deploy_host }}'
+  become: true
+  become_user: devops
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    RELEASE_VERSION: vc1p.0.26
+    ENV_CODE: prod ##prod/stage
+  vars_prompt:
+    - name: deploy_host
+      prompt: "Target Host Name"
+      private: no
+
+
+
+  roles: 
+    -  { role: ../roles/hostname }
+    - { role: ../roles/deploy-prod-cmsapi-artifact }
+    
+
+
+
+
+

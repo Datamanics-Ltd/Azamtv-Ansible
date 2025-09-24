@@ -1,0 +1,20 @@
+---
+- hosts: '{{ deploy_host }}'
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  vars_prompt:
+    - name: deploy_host
+      prompt: "Target Host Name"
+      private: no
+  roles: 
+    
+    - { role: ../roles/update-system }
+    - { role: ../roles/hostname }
+    - { role: ../roles/update-bashrc }
+    - { role: ../roles/install-api-prerequisites }
+    
+
+
+
+
