@@ -1,0 +1,21 @@
+---
+
+- name: Stop EC2 Instances
+  ec2_instance:
+    instance_ids: "{{ instance_ids }}"
+    state: "{{ ec2_action }}"
+    wait: True
+    region: "{{region}}"
+    vpc_subnet_id: vpc-0ef3b9588e02775ef
+
+
+- name: Start EC2 Instances
+  ec2_instance:
+    instance_ids: "{{ instance_ids }}"
+    state: "{{ ec2_action }}"
+    wait: True
+    region: "{{region}}"
+    vpc_subnet_id: vpc-0ef3b9588e02775ef
+
+
+
