@@ -1,0 +1,83 @@
+[git]
+azam-max-ops-git01		ansible_host=10.50.28.159
+
+[gitrunner]
+azam-max-ops-gitrunner01	ansible_host=10.50.28.107
+
+[stgmongodb]
+azam-max-stg-mongodb-01         ansible_host=10.50.29.86
+
+[stgredis]
+azam-max-stg-redis-01	        ansible_host=10.50.31.185
+
+[stageapi]
+azam-max-stag-api01             ansible_host=10.50.29.230
+azam-max-stag-api02             ansible_host=10.50.28.70
+
+[stagecmsapi]
+
+azam-max-stage-cms-api01       ansible_host=10.50.45.217
+
+[prodcmsapi]
+azam-max-prod-zb-cms-api01      ansible_host=10.50.44.96
+
+[greylog01]
+azam-max-prod-za-graylog01       ansible_host=10.50.28.117
+
+[report-prod]
+azam-max-prod-za-report01        ansible_host=10.50.30.153
+
+[stageapi-mongo6]
+azam-max-stage-api01-mongo-06    ansible_host=10.50.29.46
+azam-max-stage-api02-mongo-06    ansible_host=10.50.29.207
+
+
+[stagecmsapi-mongo6]
+azam-max-stage-cmsapi01-mongo-06 ansible_host=10.50.26.99
+
+[stage-report-mongo6]
+azam-max-stage-report01-mongo06  ansible_host=10.50.31.72
+
+[apigp01]
+azam-max-prod-za-gp01-api01          ansible_host=10.50.29.171
+azam-max-prod-zb-gp01-api02          ansible_host=10.50.48.133 
+azam-max-prod-za-gp01-api03          ansible_host=10.50.28.31
+azam-max-prod-zb-gp01-api04          ansible_host=10.50.48.173
+
+[apigp02]
+azam-max-prod-za-gp02-api01          ansible_host=10.50.29.151
+azam-max-prod-zb-gp02-api02          ansible_host=10.50.48.164
+azam-max-prod-za-gp02-api03          ansible_host=10.50.28.105
+azam-max-prod-zb-gp02-api04          ansible_host=10.50.51.74
+
+[apigp03]
+azam-max-prod-za-gp03-api01          ansible_host=10.50.28.154
+azam-max-prod-zb-gp03-api02          ansible_host=10.50.49.125
+azam-max-prod-za-gp03-api03          ansible_host=10.50.28.12 
+azam-max-prod-zb-gp03-api04          ansible_host=10.50.48.37
+
+[apigp04]
+azam-max-prod-za-gp04-api01          ansible_host=10.50.29.102
+azam-max-prod-zb-gp04-api02          ansible_host=10.50.50.186
+azam-max-prod-za-gp04-api03          ansible_host=10.50.31.119
+azam-max-prod-zb-gp04-api04          ansible_host=10.50.49.108
+
+[apigp05]
+azam-max-prod-za-gp05-api01          ansible_host=10.50.29.248
+azam-max-prod-zb-gp05-api02          ansible_host=10.50.51.216
+azam-max-prod-za-gp05-api03          ansible_host=10.50.29.117
+azam-max-prod-zb-gp05-api04          ansible_host=10.50.49.31
+
+[api05-new]
+azam-max-prod-za-gp05-api05          ansible_host=10.50.50.142
+azam-max-prod-zb-gp05-api06          ansible_host=10.50.50.172
+azam-max-prod-za-gp05-api07          ansible_host=10.50.30.241
+azam-max-prod-zb-gp05-api08          ansible_host=10.50.30.119
+azam-max-prod-zb-gp05-api09          ansible_host=10.50.31.245
+
+[apigp06]
+azam-max-prod-za-gp06-api01          ansible_host=10.50.29.7
+azam-max-prod-zb-gp06-api02          ansible_host=10.50.48.135
+azam-max-prod-za-gp06-api03          ansible_host=10.50.29.186
+azam-max-prod-zb-gp06-api04          ansible_host=10.50.50.249
+azam-max-prod-zb-gp06-api05          ansible_host=10.50.30.37
