@@ -1,0 +1,11 @@
+---
+
+artifact_download_path: /home/devops/backup
+artifact_ip: 10.50.28.53
+artifact_extract_path: /home/devops/backup/extracted
+base_dir: /home/devops/Azammedia-backend
+env_code: stage ##stage/prod
+pm2_process_name: "{{ ENV_CODE }}-cmsapi"
+backup_path: /home/devops/Azammedia-backend
+pm2_bin: /usr/lib/node_modules/pm2/bin/pm2
+application_file: /home/devops/Azammedia-backend/dist/server.js
