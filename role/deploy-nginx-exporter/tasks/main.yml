@@ -1,0 +1,65 @@
+---
+- name: Install and configure nginx-exporter
+  get_url:
+    url: https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v1.1.0/nginx-prometheus-exporter_1.1.0_linux_amd64.tar.gz
+    dest: /tmp/nginx-prometheus-exporter_1.1.0_linux_amd64.tar.gz
+    remote_src: yes
+
+- name: Extract ngin_exporter tarball
+  ansible.builtin.unarchive:
+    src: /tmp/nginx-prometheus-exporter_1.1.0_linux_amd64.tar.gz
+    dest: /tmp
+    remote_src: yes
+    
+- name: Move nginx_exporter binary to /usr/local/bin
+  ansible.builtin.copy:
+    src: /tmp/nginx-prometheus-exporter
+    dest: /usr/local/bin/
+    remote_src: yes
+    owner: devops
+    group: devops
+    mode: '0755'
+
+- name: Create system user for nginx_exporter
+  ansible.builtin.user:
+    name: nginx-exporter
+    system: yes
+    shell: /bin/false
+    createhome: no
+
+
+- name: Copy nginx_exporter systemd service file
+  ansible.builtin.copy:
+    src: ../files/nginx-exporter.service
+    dest: /etc/systemd/system/nginx-exporter.service
+    force: yes
+
+- name: Enable and start nginx_exporter service
+  ansible.builtin.systemd:
+    name: nginx-exporter
+    enabled: yes
+    state: started
+
+- name: Check nginx_exporter service status
+  ansible.builtin.systemd:
+    name: nginx-exporter
+    state: started
+  register: nginx_exporter_status
+
+- name: Copy nginx_status.conf file
+  ansible.builtin.copy:
+    src: ../files/status.conf
+    dest: /etc/nginx/conf.d
+    owner: root
+    group: root
+    mode: "0644"
+    force: yes
+
+- name: Reload Nginx
+  service:
+    name: nginx
+    state: reloaded
+  
+- name: Display nginx_exporter service status
+  ansible.builtin.debug:
+    var: nginx_exporter_status
