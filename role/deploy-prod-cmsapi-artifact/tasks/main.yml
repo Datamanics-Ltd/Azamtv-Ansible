@@ -1,0 +1,68 @@
+---
+- name: Check if PM2 process is running
+  shell: "{{ pm2_bin }} list | grep -q '{{ pm2_process_name }}'"
+  register: pm2_process_check
+  ignore_errors: true
+
+- name: Stop PM2 process if running
+  shell: "{{ pm2_bin }} stop {{ pm2_process_name }}"
+  when: pm2_process_check.rc == 0
+  ignore_errors: true
+  
+- name: check "{{base_dir}}" exists
+  stat:
+      path: "{{ base_dir }}"
+  register: base_dir_stat
+
+- name: Archive directory with timestamp if it exists
+  ansible.builtin.archive:
+    path: "{{ base_dir }}"
+    dest: "{{ base_dir }}_{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}.tar.gz"
+    format: tar
+  when: base_dir_stat.stat.exists
+
+- name: Create artifact download folder if not exists
+  ansible.builtin.file:
+    path: '{{ artifact_download_path }}'
+    state: directory
+
+- name: Download a file using wget
+  ansible.builtin.get_url:
+    url: 'http://{{ artifact_ip }}/cms/{{ ENV_CODE }}/{{ ENV_CODE}}_apibuild_{{ RELEASE_VERSION }}.tar'
+    dest: '{{ artifact_download_path }}/{{ENV_CODE}}_apibuild_{{ RELEASE_VERSION }}.tar'
+
+- name: Create artifact extract folder if not exists
+  ansible.builtin.file:
+    path: '{{ artifact_extract_path }}'
+    state: directory
+
+- name: Extract File
+  ansible.builtin.unarchive:
+    src: "{{ artifact_download_path }}/{{ENV_CODE}}_apibuild_{{ RELEASE_VERSION }}.tar"
+    dest: "{{ artifact_extract_path }}"
+    remote_src: yes
+
+- name: create base_dir if its not exists
+  ansible.builtin.file:
+    path: '{{ base_dir }}'
+    state: directory
+  when: not base_dir_stat.stat.exists
+
+- name: Move Extracted Files
+  shell: "cp -pr {{ artifact_extract_path }}/* {{ base_dir }}/"
+ 
+- name: Sync key values
+  ansible.builtin.synchronize:
+    src: ../files/prod-keys/
+    dest: /home/devops/keys
+    use_ssh_args: yes
+    rsync_path: "sudo -u devops rsync"
+
+- name: Start PM2 process
+  shell: "{{ pm2_bin }} start '{{ pm2_process_name }}' || {{ pm2_bin }} start '{{ application_file }}' --name={{ pm2_process_name }}"
+  register: pm2_start_result
+  ignore_errors: true
+  failed_when: "'online' in pm2_start_result.stderr or 'already launched' in pm2_start_result.stderr"
+
+
+
